@@ -30,6 +30,8 @@ import java.io.InputStream;
  *
  * @author Clayn <clayn_osmato@gmx.de>
  */
-public interface DataSource {
+public interface DataSource
+{
+
     InputStream getSource() throws IOException;
 }

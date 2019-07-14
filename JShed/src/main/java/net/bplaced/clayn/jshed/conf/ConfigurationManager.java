@@ -31,24 +31,29 @@ import java.io.OutputStream;
  *
  * @author Clayn <clayn_osmato@gmx.de>
  */
-public abstract class ConfigurationManager {
+public abstract class ConfigurationManager
+{
 
     public abstract Configuration load(InputStream in) throws IOException;
 
     public abstract void store(Configuration config, OutputStream out) throws IOException;
 
-    public final ReadOnlyConfigurationManager readOnly() {
+    public final ReadOnlyConfigurationManager readOnly()
+    {
         ConfigurationManager self = this;
-        return new ReadOnlyConfigurationManager() {
+        return new ReadOnlyConfigurationManager()
+        {
             @Override
-            public Configuration load(InputStream in) throws IOException {
+            public Configuration load(InputStream in) throws IOException
+            {
                 return self.load(in);
             }
         };
     }
 
     public static Configuration load(Class<? extends ConfigurationManager> clazz,
-            InputStream in) throws InstantiationException, IllegalAccessException, IOException {
+            InputStream in) throws InstantiationException, IllegalAccessException, IOException
+    {
         ConfigurationManager manager = clazz.newInstance();
         return manager.load(in);
     }

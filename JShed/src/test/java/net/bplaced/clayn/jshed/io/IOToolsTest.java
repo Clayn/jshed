@@ -41,33 +41,41 @@ import org.mockito.Mockito;
  *
  * @author Clayn <clayn_osmato@gmx.de>
  */
-public class IOToolsTest {
+public class IOToolsTest
+{
 
-    public IOToolsTest() {
+    public IOToolsTest()
+    {
     }
 
     @BeforeClass
-    public static void setUpClass() {
+    public static void setUpClass()
+    {
     }
 
     @AfterClass
-    public static void tearDownClass() {
+    public static void tearDownClass()
+    {
     }
 
     @Before
-    public void setUp() {
+    public void setUp()
+    {
     }
 
     @After
-    public void tearDown() {
+    public void tearDown()
+    {
     }
 
     @Test
-    public void testCopyStreams() throws UnsupportedEncodingException, IOException {
+    public void testCopyStreams() throws UnsupportedEncodingException, IOException
+    {
         byte[] data = "Hello World".getBytes("UTF-8");
         ByteArrayInputStream src = new ByteArrayInputStream(data);
         ByteArrayOutputStream dest = new ByteArrayOutputStream();
-        try (InputStream in = src; OutputStream out = dest) {
+        try (InputStream in = src; OutputStream out = dest)
+        {
             IOTools.copy(in, out);
         }
         byte[] result = dest.toByteArray();
@@ -75,17 +83,20 @@ public class IOToolsTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testCopyStreamsSrcNull() throws UnsupportedEncodingException, IOException {
+    public void testCopyStreamsSrcNull() throws UnsupportedEncodingException, IOException
+    {
         byte[] data = "Hello World".getBytes("UTF-8");
         ByteArrayInputStream src = new ByteArrayInputStream(data);
         ByteArrayOutputStream dest = new ByteArrayOutputStream();
-        try (InputStream in = src; OutputStream out = dest) {
+        try (InputStream in = src; OutputStream out = dest)
+        {
             IOTools.copy(null, out);
         }
     }
 
     @Test(expected = NullPointerException.class)
-    public void testCopyStreamsDestNull() throws UnsupportedEncodingException, IOException {
+    public void testCopyStreamsDestNull() throws UnsupportedEncodingException, IOException
+    {
         InputStream src = Mockito.mock(InputStream.class);
         Mockito.when(src.read()).thenThrow(IllegalArgumentException.class);
         Mockito.when(src.read(Mockito.any())).thenThrow(
@@ -93,23 +104,27 @@ public class IOToolsTest {
         Mockito.when(src.read(Mockito.any(), Mockito.anyInt(), Mockito.anyInt())).thenThrow(
                 IllegalArgumentException.class);
         ByteArrayOutputStream dest = new ByteArrayOutputStream();
-        try (InputStream in = src; OutputStream out = dest) {
+        try (InputStream in = src; OutputStream out = dest)
+        {
             IOTools.copy(in, null);
         }
     }
 
     @Test(expected = NullPointerException.class)
-    public void testCopyStreamsBothNull() throws UnsupportedEncodingException, IOException {
+    public void testCopyStreamsBothNull() throws UnsupportedEncodingException, IOException
+    {
         byte[] data = "Hello World".getBytes("UTF-8");
         ByteArrayInputStream src = new ByteArrayInputStream(data);
         ByteArrayOutputStream dest = new ByteArrayOutputStream();
-        try (InputStream in = null; OutputStream out = dest) {
+        try (InputStream in = null; OutputStream out = dest)
+        {
             IOTools.copy(in, null);
         }
     }
 
     @Test
-    public void testCopySourceSink() throws UnsupportedEncodingException, IOException {
+    public void testCopySourceSink() throws UnsupportedEncodingException, IOException
+    {
         byte[] data = "Hello World".getBytes("UTF-8");
         ByteArrayInputStream src = new ByteArrayInputStream(data);
         ByteArrayOutputStream dest = new ByteArrayOutputStream();

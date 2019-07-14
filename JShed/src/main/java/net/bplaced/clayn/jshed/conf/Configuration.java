@@ -32,22 +32,27 @@ import net.bplaced.clayn.jshed.util.StringConverter;
  *
  * @author Clayn <clayn_osmato@gmx.de>
  */
-public interface Configuration {
+public interface Configuration
+{
 
-    public abstract static class Key<T> implements StringConverter<T> {
+    public abstract static class Key<T> implements StringConverter<T>
+    {
 
         private final String key;
 
-        public Key(String key) {
+        public Key(String key)
+        {
             this.key = key;
         }
 
         @Override
-        public String toString(T val) {
+        public String toString(T val)
+        {
             return val == null ? null : val.toString();
         }
 
-        public String getKey() {
+        public String getKey()
+        {
             return key;
         }
     }
@@ -65,19 +70,23 @@ public interface Configuration {
 
     <T> T get(Key<T> key, T def);
 
-    default String getString(String key, String def) {
+    default String getString(String key, String def)
+    {
         return get(new StringKey(key), def);
     }
 
-    default String getString(String key) {
+    default String getString(String key)
+    {
         return getString(key, null);
     }
 
-    default int getInt(String key, int def) {
+    default int getInt(String key, int def)
+    {
         return get(new IntegerKey(key), def);
     }
 
-    default int getInt(String key) {
+    default int getInt(String key)
+    {
         return getInt(key, -1);
     }
 
@@ -88,7 +97,8 @@ public interface Configuration {
      */
     Set<String> getConfigurationNames();
 
-    default <T> T get(Key<T> key) {
+    default <T> T get(Key<T> key)
+    {
         return get(key, null);
     }
 

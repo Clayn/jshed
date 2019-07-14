@@ -30,6 +30,8 @@ import java.io.OutputStream;
  *
  * @author Clayn <clayn_osmato@gmx.de>
  */
-public interface DataSink {
+public interface DataSink
+{
+
     OutputStream getSink() throws IOException;
 }

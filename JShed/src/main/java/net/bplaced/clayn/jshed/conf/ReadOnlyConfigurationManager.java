@@ -30,10 +30,12 @@ import java.io.OutputStream;
  *
  * @author Clayn <clayn_osmato@gmx.de>
  */
-public abstract class ReadOnlyConfigurationManager extends ConfigurationManager {
+public abstract class ReadOnlyConfigurationManager extends ConfigurationManager
+{
 
     @Override
-    public final void store(Configuration config, OutputStream out) throws IOException {
+    public final void store(Configuration config, OutputStream out) throws IOException
+    {
 
     }
 

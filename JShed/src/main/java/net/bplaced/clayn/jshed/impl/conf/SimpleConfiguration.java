@@ -35,27 +35,33 @@ import net.bplaced.clayn.jshed.conf.ConfigurationChangeListener;
  *
  * @author Clayn <clayn_osmato@gmx.de>
  */
-public class SimpleConfiguration implements Configuration {
+public class SimpleConfiguration implements Configuration
+{
 
     private final Properties properties;
     private final List<ConfigurationChangeListener> listeners = new ArrayList<>();
 
-    public SimpleConfiguration() {
+    public SimpleConfiguration()
+    {
         this(new Properties());
     }
 
-    SimpleConfiguration(Properties properties) {
+    SimpleConfiguration(Properties properties)
+    {
         this.properties = Objects.requireNonNull(properties);
     }
-    
-    private <T> void invokeListeners(Key<T> key, T old, T newV) {
-        for(ConfigurationChangeListener listener:listeners) {
+
+    private <T> void invokeListeners(Key<T> key, T old, T newV)
+    {
+        for (ConfigurationChangeListener listener : listeners)
+        {
             listener.changed(this, key, old, newV);
         }
     }
 
     @Override
-    public <T> T set(Key<T> key, T val) {
+    public <T> T set(Key<T> key, T val)
+    {
         Objects.requireNonNull(key);
         T old = get(key);
         properties.setProperty(key.getKey(), key.toString(val));
@@ -64,31 +70,36 @@ public class SimpleConfiguration implements Configuration {
     }
 
     @Override
-    public <T> T get(Key<T> key, T def) {
+    public <T> T get(Key<T> key, T def)
+    {
         Objects.requireNonNull(key);
         T val = key.fromString(properties.getProperty(key.getKey()));
         return val == null ? def : val;
     }
 
     @Override
-    public int getInt(String key, int def) {
+    public int getInt(String key, int def)
+    {
         IntegerKey intKey = new IntegerKey(key);
         String val = properties.getProperty(key);
         return intKey.fromStringPrimitive(val);
     }
 
     @Override
-    public Set<String> getConfigurationNames() {
+    public Set<String> getConfigurationNames()
+    {
         return properties.stringPropertyNames();
     }
 
     @Override
-    public void removeChangeListener(ConfigurationChangeListener listener) {
+    public void removeChangeListener(ConfigurationChangeListener listener)
+    {
         listeners.remove(listener);
     }
 
     @Override
-    public void addChangeListener(ConfigurationChangeListener listener) {
+    public void addChangeListener(ConfigurationChangeListener listener)
+    {
         listeners.add(listener);
     }
 }

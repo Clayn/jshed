@@ -27,36 +27,47 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
+ * Central class for several configurations around the JShed library. Not all
+ * classes need this to be initialized. But you should always shutdown JShed at
+ * the end of your application to free possible opened resources.
  *
  * @author Clayn <clayn_osmato@gmx.de>
  */
-public final class JShed {
-    private static ExecutorService executorService=null;
-    
-    public static ExecutorService getExecutorService(){
-        if(executorService==null) {
-            executorService=Executors.newCachedThreadPool();
+public final class JShed
+{
+
+    private static ExecutorService executorService = null;
+
+    public static ExecutorService getExecutorService()
+    {
+        if (executorService == null)
+        {
+            executorService = Executors.newCachedThreadPool();
             return getExecutorService();
         }
         return executorService;
     }
-    
-    public static void setExecutorService(ExecutorService service) {
-        if(executorService!=null) {
+
+    public static void setExecutorService(ExecutorService service)
+    {
+        if (executorService != null)
+        {
             executorService.shutdown();
         }
-        executorService=service;
+        executorService = service;
     }
-    
-    public static void shutdown() {
-        if(executorService!=null) {
+
+    public static void shutdown()
+    {
+        if (executorService != null)
+        {
             executorService.shutdownNow();
         }
     }
-    
-    private JShed() {
-        
+
+    private JShed()
+    {
+
     }
-    
-    
+
 }

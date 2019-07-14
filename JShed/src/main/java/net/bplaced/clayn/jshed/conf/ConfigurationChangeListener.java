@@ -27,6 +27,9 @@ package net.bplaced.clayn.jshed.conf;
  *
  * @author Clayn <clayn_osmato@gmx.de>
  */
-public interface ConfigurationChangeListener {
-    <T> void changed(Configuration config, Configuration.Key<T> key, T oldValue, T newValue);
+public interface ConfigurationChangeListener
+{
+
+    <T> void changed(Configuration config, Configuration.Key<T> key, T oldValue,
+            T newValue);
 }

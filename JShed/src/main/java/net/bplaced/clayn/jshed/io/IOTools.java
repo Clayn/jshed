@@ -39,41 +39,52 @@ import net.bplaced.clayn.jshed.util.Progresser;
  *
  * @author Clayn <clayn_osmato@gmx.de>
  */
-public final class IOTools {
+public final class IOTools
+{
 
-    private IOTools() {
+    private IOTools()
+    {
     }
 
     public static Progresser copyAsync(InputStream src, OutputStream dest,
-            long amount) {
+            long amount)
+    {
         long max = amount;
         AtomicLong current = new AtomicLong(0);
-        AtomicBoolean done=new AtomicBoolean(false);
-        Progresser progress = new Progresser() {
+        AtomicBoolean done = new AtomicBoolean(false);
+        Progresser progress = new Progresser()
+        {
 
             @Override
-            public double getProgress() {
+            public double getProgress()
+            {
                 return max > 0 ? (current.get() * 1.0) / (max * 1.0) : -1;
             }
 
-            public boolean isDone() {
+            public boolean isDone()
+            {
                 return done.get();
             }
 
         };
-        Runnable task = new Runnable() {
+        Runnable task = new Runnable()
+        {
             @Override
-            public void run() {
-                try {
+            public void run()
+            {
+                try
+                {
                     byte[] buffer = new byte[256];
                     int read;
-                    while ((read = src.read(buffer)) != -1) {
+                    while ((read = src.read(buffer)) != -1)
+                    {
                         dest.write(buffer, 0, read);
                         current.addAndGet(read);
                     }
                     dest.flush();
                     done.set(true);
-                } catch (IOException ex) {
+                } catch (IOException ex)
+                {
                     throw new RuntimeException(ex);
                 }
             }
@@ -82,38 +93,47 @@ public final class IOTools {
         return progress;
     }
 
-    public static void copy(InputStream src, OutputStream dest) throws IOException {
+    public static void copy(InputStream src, OutputStream dest) throws IOException
+    {
         Objects.requireNonNull(src);
         Objects.requireNonNull(dest);
         byte[] buffer = new byte[256];
         int read;
-        while ((read = src.read(buffer)) != -1) {
+        while ((read = src.read(buffer)) != -1)
+        {
             dest.write(buffer, 0, read);
         }
         dest.flush();
     }
 
-    public static void copy(DataSource src, DataSink dest) throws IOException {
-        try (InputStream in = src.getSource(); OutputStream out = dest.getSink()) {
+    public static void copy(DataSource src, DataSink dest) throws IOException
+    {
+        try (InputStream in = src.getSource(); OutputStream out = dest.getSink())
+        {
             copy(in, out);
         }
     }
 
-    public static IOObject toIOObject(File f) {
+    public static IOObject toIOObject(File f)
+    {
         Objects.requireNonNull(f);
         return toIOObject(f.toPath());
     }
 
-    public static IOObject toIOObject(Path p) {
+    public static IOObject toIOObject(Path p)
+    {
         Objects.requireNonNull(p);
-        return new IOObject() {
+        return new IOObject()
+        {
             @Override
-            public InputStream getSource() throws IOException {
+            public InputStream getSource() throws IOException
+            {
                 return Files.newInputStream(p);
             }
 
             @Override
-            public OutputStream getSink() throws IOException {
+            public OutputStream getSink() throws IOException
+            {
                 return Files.newOutputStream(p);
             }
         };

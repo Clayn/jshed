@@ -28,10 +28,13 @@ package net.bplaced.clayn.jshed.util;
  * @author Clayn <clayn_osmato@gmx.de>
  * @param <T>
  */
-public interface StringConverter<T> {
+public interface StringConverter<T>
+{
+
     T fromString(String str);
-    
-    default String toString(T val) {
-        return val==null?null:val.toString();
+
+    default String toString(T val)
+    {
+        return val == null ? null : val.toString();
     }
 }

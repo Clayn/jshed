@@ -27,10 +27,13 @@ package net.bplaced.clayn.jshed.util;
  *
  * @author Clayn <clayn_osmato@gmx.de>
  */
-public interface Progresser {
+public interface Progresser
+{
+
     double getProgress();
-    
-    default boolean isDone() {
-        return getProgress()>=1.0;
+
+    default boolean isDone()
+    {
+        return getProgress() >= 1.0;
     }
 }

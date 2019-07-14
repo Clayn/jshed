@@ -29,24 +29,29 @@ import net.bplaced.clayn.jshed.conf.Configuration;
  *
  * @author Clayn <clayn_osmato@gmx.de>
  */
-public class IntegerKey extends Configuration.Key<Integer> {
+public class IntegerKey extends Configuration.Key<Integer>
+{
 
-    public IntegerKey(String key) {
+    public IntegerKey(String key)
+    {
         super(key);
     }
 
     @Override
-    public Integer fromString(String str) {
-        return str==null?null:fromStringPrimitive(str);
+    public Integer fromString(String str)
+    {
+        return str == null ? null : fromStringPrimitive(str);
     }
-    
-    public int fromStringPrimitive(String str) {
+
+    public int fromStringPrimitive(String str)
+    {
         return Integer.parseInt(str);
     }
 
     @Override
-    public String toString(Integer val) {
-        return val==null?null:val.toString();
+    public String toString(Integer val)
+    {
+        return val == null ? null : val.toString();
     }
-    
+
 }

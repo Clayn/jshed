@@ -29,20 +29,24 @@ import net.bplaced.clayn.jshed.conf.Configuration;
  *
  * @author Clayn <clayn_osmato@gmx.de>
  */
-public class StringKey extends Configuration.Key<String> {
+public class StringKey extends Configuration.Key<String>
+{
 
-    public StringKey(String key) {
+    public StringKey(String key)
+    {
         super(key);
     }
 
     @Override
-    public String fromString(String str) {
+    public String fromString(String str)
+    {
         return str;
     }
 
     @Override
-    public String toString(String val) {
+    public String toString(String val)
+    {
         return val;
     }
-    
+
 }

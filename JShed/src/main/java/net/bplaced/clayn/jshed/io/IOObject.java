@@ -27,6 +27,7 @@ package net.bplaced.clayn.jshed.io;
  *
  * @author Clayn <clayn_osmato@gmx.de>
  */
-public interface IOObject extends DataSource,DataSink {
-    
+public interface IOObject extends DataSource, DataSink
+{
+
 }

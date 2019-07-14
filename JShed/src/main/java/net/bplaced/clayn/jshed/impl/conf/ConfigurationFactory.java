@@ -35,20 +35,25 @@ import net.bplaced.clayn.jshed.conf.ConfigurationManager;
  *
  * @author Clayn <clayn_osmato@gmx.de>
  */
-public final class ConfigurationFactory {
+public final class ConfigurationFactory
+{
 
     private static final ConfigurationFactory INSTANCE = new ConfigurationFactory();
     private final Map<Class<? extends ConfigurationManager>, ConfigurationManager> loadedManagers = new HashMap<>();
 
     private ConfigurationManager loadManager(
-            Class<? extends ConfigurationManager> clazz) {
-        if (loadedManagers.containsKey(clazz)) {
+            Class<? extends ConfigurationManager> clazz)
+    {
+        if (loadedManagers.containsKey(clazz))
+        {
             return loadedManagers.get(clazz);
         }
-        try {
+        try
+        {
             ConfigurationManager manager = clazz.newInstance();
             loadedManagers.put(clazz, manager);
-        } catch (InstantiationException | IllegalAccessException ex) {
+        } catch (InstantiationException | IllegalAccessException ex)
+        {
             throw new RuntimeException(ex);
         }
         return loadManager(clazz);
@@ -65,13 +70,15 @@ public final class ConfigurationFactory {
      * @throws IOException if an I/O exception occurs while loading
      */
     public static Configuration loadConfiguration(
-            Class<? extends ConfigurationManager> manager, InputStream in) throws IOException {
+            Class<? extends ConfigurationManager> manager, InputStream in) throws IOException
+    {
         return INSTANCE.loadManager(manager).load(in);
     }
 
     public static void storeConfiguration(
             Class<? extends ConfigurationManager> manager, Configuration config,
-            OutputStream out) throws IOException {
+            OutputStream out) throws IOException
+    {
         INSTANCE.loadManager(manager).store(config, out);
     }
 }

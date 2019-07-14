@@ -34,25 +34,30 @@ import net.bplaced.clayn.jshed.conf.ConfigurationManager;
  *
  * @author Clayn <clayn_osmato@gmx.de>
  */
-public class JXMLConfigurationManager extends ConfigurationManager{
+public class JXMLConfigurationManager extends ConfigurationManager
+{
 
     @Override
-    public Configuration load(InputStream in) throws IOException {
-        Properties prop=new Properties();
+    public Configuration load(InputStream in) throws IOException
+    {
+        Properties prop = new Properties();
         prop.loadFromXML(in);
         return new SimpleConfiguration(prop);
     }
 
     @Override
-    public void store(Configuration config, OutputStream out) throws IOException {
-        Properties props=new Properties();
-        for(String key:config.getConfigurationNames()) {
-            String val=config.getString(key);
-            if(val!=null) {
+    public void store(Configuration config, OutputStream out) throws IOException
+    {
+        Properties props = new Properties();
+        for (String key : config.getConfigurationNames())
+        {
+            String val = config.getString(key);
+            if (val != null)
+            {
                 props.setProperty(key, val);
             }
         }
         props.storeToXML(out, "");
     }
-    
+
 }
