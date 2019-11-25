@@ -55,6 +55,7 @@ node {
             }
         }
         stage('Results') {
+			 sh "'${mvnHome}/bin/mvn' deploy -Dregistry=https://maven.pkg.github.com/Clayn"
             junit allowEmptyResults: true, testResults: '**/TEST-*.xml'
         }
    }
