@@ -34,8 +34,16 @@ node {
                 bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore=true test/)
             }
         }
+        stage('Reporting') {
+            if (isUnix()) {
+                sh "'${mvnHome}/bin/mvn' -DskipTests site"
+            } else {
+                bat(/"${mvnHome}\bin\mvn" -DskipTests site/)
+            }
+        }
         stage('Results') {
             junit allowEmptyResults: true, testResults: '**/TEST-*.xml'
+            jacoco()
         }
    }
 	dir('JShedFX') {
@@ -54,8 +62,16 @@ node {
                 bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore=true test/)
             }
         }
+        stage('Reporting') {
+            if (isUnix()) {
+                sh "'${mvnHome}/bin/mvn' -DskipTests site"
+            } else {
+                bat(/"${mvnHome}\bin\mvn" -DskipTests site/)
+            }
+        }
         stage('Results') {
             junit allowEmptyResults: true, testResults: '**/TEST-*.xml'
+            jacoco()
         }
    }
 }

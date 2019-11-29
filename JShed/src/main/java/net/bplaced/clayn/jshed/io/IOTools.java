@@ -33,7 +33,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import net.bplaced.clayn.jshed.JShed;
-import net.bplaced.clayn.jshed.util.Progresser;
+import net.bplaced.clayn.jshed.util.ProgressingTask;
 
 /**
  *
@@ -46,13 +46,13 @@ public final class IOTools
     {
     }
 
-    public static Progresser copyAsync(InputStream src, OutputStream dest,
+    public static ProgressingTask copyAsync(InputStream src, OutputStream dest,
             long amount)
     {
         long max = amount;
         AtomicLong current = new AtomicLong(0);
         AtomicBoolean done = new AtomicBoolean(false);
-        Progresser progress = new Progresser()
+        ProgressingTask progress = new ProgressingTask()
         {
 
             @Override
@@ -80,6 +80,11 @@ public final class IOTools
                     {
                         dest.write(buffer, 0, read);
                         current.addAndGet(read);
+                        if (progress.getOnProgressChanged() != null)
+                        {
+                            progress.getOnProgressChanged().accept(
+                                    progress.getProgress());
+                        }
                     }
                     dest.flush();
                     done.set(true);
