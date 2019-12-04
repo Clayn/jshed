@@ -70,7 +70,9 @@ node {
         }
         stage('Results') {
             junit allowEmptyResults: true, testResults: '**/TEST-*.xml'
-            jacoco()
         }
+   }
+   stage('Coverage') {
+       jacoco()
    }
 }
