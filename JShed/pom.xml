@@ -13,7 +13,6 @@
     <name>JShed</name>
     <build>
         <plugins>
-            <plugins>
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
