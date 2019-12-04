@@ -23,6 +23,9 @@
  */
 package net.bplaced.clayn.jshed.fx.app;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  *
  * @author Clayn <clayn_osmato@gmx.de>
@@ -30,14 +33,69 @@ package net.bplaced.clayn.jshed.fx.app;
 public class FXApp
 {
 
+    private static final Logger LOG = LoggerFactory.getLogger(FXApp.class);
+    private final ErrorService DEFAULT_SERVICE = new ErrorService()
+    {
+        @Override
+        public void handleException(Exception ex)
+        {
+            if (ex == null)
+            {
+                return;
+            }
+            if (loggingExceptions)
+            {
+                LOG.error("", ex);
+            }
+            if (errorService != null)
+            {
+                errorService.handleException(ex);
+            }
+        }
+    };
+    private boolean loggingExceptions = true;
+    private ErrorService errorService = null;
     private static final FXApp INSTANCE = new FXApp();
 
     private FXApp()
     {
 
     }
-    
-    public static FXApp getApplication() {
+
+    public ErrorService getErrorService()
+    {
+        return errorService;
+    }
+
+    public void setErrorService(ErrorService errorService)
+    {
+        this.errorService = errorService;
+    }
+
+    /**
+     * Returns the JShed error service. That service will log the exception if
+     * enabled and will delegate that exception to the error service set with {@link #setErrorService(net.bplaced.clayn.jshed.fx.app.ErrorService)
+     * }.
+     *
+     * @return the JShed error service.
+     */
+    public ErrorService getJShedErrorService()
+    {
+        return DEFAULT_SERVICE;
+    }
+
+    public boolean isLoggingExceptions()
+    {
+        return loggingExceptions;
+    }
+
+    public void setLoggingExceptions(boolean loggingExceptions)
+    {
+        this.loggingExceptions = loggingExceptions;
+    }
+
+    public static FXApp getApplication()
+    {
         return INSTANCE;
     }
 }

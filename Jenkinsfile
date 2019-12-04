@@ -43,7 +43,6 @@ node {
         }
         stage('Results') {
             junit allowEmptyResults: true, testResults: '**/TEST-*.xml'
-            jacoco()
         }
    }
 	dir('JShedFX') {

@@ -55,13 +55,35 @@ public class ParameterList
         return this;
     }
 
-    public static ParameterList create() {
-        return new ParameterList();
+    public static ParameterList create(Object ...values) {
+        ParameterList list=new ParameterList();
+        if(values!=null) {
+            if(values.length==1) {
+                Object key=values[0];
+                if(key!=null) {
+                    list.setParameter(key.toString(), null);
+                }
+            }
+            for(int i=0;i<values.length-1;i+=2) {
+                Object key=values[i];
+                Object val=values[i+1];
+                if(key!=null) {
+                    list.setParameter(key.toString(), val);
+                }
+            }
+            if(values.length%2!=0) {
+                Object key=values[values.length-1];
+                if(key!=null) {
+                    list.setParameter(key.toString(), null);
+                }
+            }
+        }
+        return list;
     }
     
     public static ParameterList emptyList() {
         return create();
     }
-
+    
    
 }
